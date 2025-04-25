@@ -1,11 +1,44 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const [displayItems, setDisplayItems] = useState([]);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/item/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success",
+              });
+            }
+
+            const remaining = displayItems.filter((item) => item._id !== id);
+            setDisplayItems(remaining);
+            setItems(remaining);
+          });
+      }
+    });
+  };
 
   const handleCustomaization = (filter) => {
     if (filter === "Yes") {
@@ -65,7 +98,12 @@ const MyItems = () => {
                   <button className="btn btn-primary">Update</button>
                 </Link>
 
-                <button className="btn btn-primary">Delete</button>
+                <button
+                  onClick={() => handleDelete(item._id)}
+                  className="btn btn-primary"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
