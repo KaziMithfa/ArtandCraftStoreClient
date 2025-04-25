@@ -1,12 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Update = () => {
   const item = useLoaderData();
 
+  const [category, setCategory] = useState(item.subcategoryName);
+  const [customaization, setCustomaization] = useState(item.customaization);
+
+  const handleUpdateItem = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const itemName = form.itemName.value;
+    const url = form.image.value;
+
+    const subcategoryName = category;
+    const shortDescription = form.description.value;
+    const price = form.price.value;
+    const rating = form.rating.value;
+    const time = form.processingTime.value;
+    const stockStatus = form.stockStatus.value;
+
+    const updateItem = {
+      itemName,
+      url,
+      subcategoryName,
+      shortDescription,
+      customaization,
+      price,
+      rating,
+      time,
+      stockStatus,
+    };
+
+    fetch(`http://localhost:5000/item/${item._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updateItem),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            title: "Success!",
+            text: "You have successfully updated the item",
+            icon: "success",
+            confirmButtonText: "Cool",
+          });
+        }
+      });
+  };
+
   return (
     <div className="mx-auto lg:w-max">
-      <form>
+      <form onSubmit={handleUpdateItem}>
         {/* form photo url row  */}
         <div className="mb-4">
           <div className="w-full ">
@@ -16,6 +66,7 @@ const Update = () => {
               <input
                 className="input input-bordered join-item w-full"
                 name="image"
+                defaultValue={item.url}
                 placeholder="image url"
               />
             </div>
@@ -32,6 +83,7 @@ const Update = () => {
               className="input input-bordered join-item w-full"
               name="itemName"
               placeholder="Item Name"
+              defaultValue={item.itemName}
             />
           </div>
 
@@ -40,16 +92,14 @@ const Update = () => {
               <span className="label-text">SubCategory Name</span>
             </label>
 
-            <select className="select select-bordered w-full ">
-              <option value="" disabled>
-                Choose your sub category
-              </option>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="select select-bordered w-full "
+            >
+              <option disabled>Choose your sub category</option>
               <option value="Landscape Painting">Landscape Painting</option>
               <option value="Portrait Drawing">Portrait Drawing</option>
-              <option>
-                Watercolour Painting: Floral Watercolor Art, Animal Watercolor
-                Portrait
-              </option>
               <option value="Oil Panting">Oil Painting</option>
               <option value="Charcoal Sketching">Charcoal Sketching</option>
               <option value="Cartoon Drawing">Cartoon Drawing</option>
@@ -62,6 +112,7 @@ const Update = () => {
             <textarea
               className="textarea"
               name="description"
+              defaultValue={item.shortDescription}
               placeholder="Short Descrption"
             ></textarea>
           </div>
@@ -71,10 +122,12 @@ const Update = () => {
               <span className="label-text">Customization</span>
             </label>
 
-            <select className="select select-bordered w-full ">
-              <option value="" disabled>
-                Select your option
-              </option>
+            <select
+              className="select select-bordered w-full "
+              value={customaization}
+              onChange={(e) => setCustomaization(e.target.value)}
+            >
+              <option disabled>Select your option</option>
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
@@ -91,6 +144,7 @@ const Update = () => {
                 className="input input-bordered join-item w-full"
                 name="price"
                 placeholder="Price"
+                defaultValue={item.price}
               />
             </div>
           </div>
@@ -103,6 +157,7 @@ const Update = () => {
                 className="input input-bordered join-item w-full"
                 name="rating"
                 placeholder="Rating"
+                defaultValue={item.rating}
               />
             </div>
           </div>
@@ -117,6 +172,7 @@ const Update = () => {
                 className="input input-bordered join-item w-full"
                 name="processingTime"
                 placeholder="Processing Time"
+                defaultValue={item.time}
               />
             </div>
           </div>
@@ -129,32 +185,7 @@ const Update = () => {
                 className="input input-bordered join-item w-full"
                 name="stockStatus"
                 placeholder="Stock Status"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="md:flex mb-6">
-          <div className="w-1/2">
-            <label>User Email</label>
-
-            <div>
-              <input
-                className="input input-bordered join-item w-full"
-                name="email"
-                placeholder="Write your Email"
-              />
-            </div>
-          </div>
-
-          <div className="w-1/2 ml-4">
-            <label>Name</label>
-
-            <div>
-              <input
-                className="input input-bordered join-item w-full"
-                name="userName"
-                placeholder="Write your name here"
+                defaultValue={item.stockStatus}
               />
             </div>
           </div>
