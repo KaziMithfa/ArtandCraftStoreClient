@@ -13,6 +13,7 @@ import AddItem from "./components/AddItem/AddItem.jsx";
 import AddItemsPrivateRoute from "./components/AddItemsPrivateRoute/AddItemsPrivateRoute.jsx";
 import MyItemsPrivateRoute from "./components/MyItemsPrivateRoute/MyItemsPrivateRoute.jsx";
 import MyItems from "./components/MyItems/MyItems.jsx";
+import Update from "./components/Update/Update.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,13 @@ const router = createBrowserRouter([
             <MyItems></MyItems>
           </MyItemsPrivateRoute>
         ),
+      },
+
+      {
+        path: `/item/:id`,
+        element: <Update></Update>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/item/${params.id}`),
       },
     ],
   },

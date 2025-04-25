@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import { Link } from "react-router-dom";
 
 const MyItems = () => {
   const { user } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const MyItems = () => {
     if (filter === "Yes") {
       const newItems = items.filter((item) => item.customaization === "Yes");
       setDisplayItems(newItems);
-      console.log(displayItems);
+      //console.log(displayItems);
     } else if (filter === "No") {
       const newItems = items.filter((item) => item.customaization === "No");
       setDisplayItems(newItems);
@@ -21,7 +22,7 @@ const MyItems = () => {
     fetch(`http://localhost:5000/myItems/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setItems(data);
         setDisplayItems(data);
       });
@@ -60,7 +61,10 @@ const MyItems = () => {
               <h2 className="card-title">StockStatus: {item.stockStatus}</h2>
 
               <div className="card-actions justify-between">
-                <button className="btn btn-primary">Update</button>
+                <Link to={`/item/${item._id}`}>
+                  <button className="btn btn-primary">Update</button>
+                </Link>
+
                 <button className="btn btn-primary">Delete</button>
               </div>
             </div>
