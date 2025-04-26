@@ -11,7 +11,7 @@ const NavBar = () => {
       </li>
 
       <li>
-        <NavLink to="/allitems">All art and craft Items</NavLink>
+        <NavLink to="/items">All art and craft Items</NavLink>
       </li>
 
       <li>
