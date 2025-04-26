@@ -19,7 +19,7 @@ const AllItems = () => {
               </div>
 
               <div className="card-actions justify-center">
-                <Link to={`/item/${item._id}`}>
+                <Link to={`/viewDetails/${item._id}`}>
                   <button className="btn btn-primary">View Details</button>
                 </Link>
               </div>

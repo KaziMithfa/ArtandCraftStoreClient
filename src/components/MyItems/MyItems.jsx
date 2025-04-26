@@ -62,7 +62,7 @@ const MyItems = () => {
   }, []);
 
   return (
-    <div className="mx-auto lg:max-w-5xl md:max-w-md lg:px-6 lg:pt-5 pt-2">
+    <div className="mx-auto lg:max-w-6xl md:max-w-md lg:px-6 lg:pt-5 pt-2">
       <h2>Here you will see your items</h2>
 
       <div className="text-center lg:mb-6">
