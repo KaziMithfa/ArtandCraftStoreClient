@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
 const Login = () => {
-  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const { signInUser, googleSignIn, githubSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -23,7 +23,21 @@ const Login = () => {
       });
   };
 
-  const handleGithubSignIn = () => {};
+  const handleGithubSignIn = () => {
+    githubSignIn()
+      .then((result) => {
+        console.log(result.user);
+        if (location?.state) {
+          navigate(location.state);
+        } else {
+          navigate("/");
+          toast.success("Logged in successfully....");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -42,7 +56,7 @@ const Login = () => {
         }
       })
       .catch((error) => {
-        toast.error(error);
+        toast.error(error.message);
         console.log(error);
       });
   };
