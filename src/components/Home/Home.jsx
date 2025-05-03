@@ -13,7 +13,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="mx-auto lg:max-w-[1200px] md:max-w-md ">
+      <div className=" container mx-auto ">
         {/* Slider */}
         <div className="carousel w-full">
           <div id="slide1" className="carousel-item relative w-full">

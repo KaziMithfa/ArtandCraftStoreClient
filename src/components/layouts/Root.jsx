@@ -13,7 +13,9 @@ const Root = () => {
 
       <ToastContainer></ToastContainer>
 
-      <Outlet className="min-h-[calc(100vh-300px)]"></Outlet>
+      <div className="min-h-[calc(100vh-300px)]">
+        <Outlet></Outlet>
+      </div>
 
       <Footer></Footer>
     </div>
