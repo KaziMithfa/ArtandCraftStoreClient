@@ -17,16 +17,19 @@ import Update from "./components/Update/Update.jsx";
 import AllItems from "./components/AllItems/AllItems.jsx";
 import VIewDetials from "./components/ViewDetails/VIewDetials.jsx";
 import ViewDetailsPrivateRoute from "./components/ViewDetailsPrivateRoute/ViewDetailsPrivateRoute.jsx";
+import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
         element: <Home></Home>,
-        loader: () => fetch("http://localhost:5000/items"),
+        loader: () =>
+          fetch("https://art-and-craft-store-server-alpha.vercel.app/items"),
       },
       {
         path: "/register",
@@ -58,7 +61,9 @@ const router = createBrowserRouter([
         path: `/item/:id`,
         element: <Update></Update>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/item/${params.id}`),
+          fetch(
+            `https://art-and-craft-store-server-alpha.vercel.app/item/${params.id}`
+          ),
       },
 
       {
@@ -69,13 +74,16 @@ const router = createBrowserRouter([
           </ViewDetailsPrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/item/${params.id}`),
+          fetch(
+            `https://art-and-craft-store-server-alpha.vercel.app/item/${params.id}`
+          ),
       },
 
       {
         path: "/items",
         element: <AllItems></AllItems>,
-        loader: () => fetch("http://localhost:5000/items"),
+        loader: () =>
+          fetch("https://art-and-craft-store-server-alpha.vercel.app/items"),
       },
     ],
   },

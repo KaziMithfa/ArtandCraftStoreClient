@@ -39,7 +39,7 @@ const Register = () => {
           // The user has been created successfully
           // Create operation of the database
 
-          fetch("http://localhost:5000/users", {
+          fetch("https://art-and-craft-store-server-alpha.vercel.app/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",

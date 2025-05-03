@@ -35,7 +35,7 @@ const AddItem = () => {
       userName,
     };
 
-    fetch("http://localhost:5000/items", {
+    fetch("https://art-and-craft-store-server-alpha.vercel.app/items", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -55,7 +55,7 @@ const AddItem = () => {
   };
 
   return (
-    <div>
+    <div className="container mx-auto">
       <h1 className="text-center">You can add your items here</h1>
 
       <form onSubmit={handleAddItem}>

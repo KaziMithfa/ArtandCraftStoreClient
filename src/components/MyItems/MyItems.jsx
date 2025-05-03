@@ -19,9 +19,12 @@ const MyItems = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/item/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://art-and-craft-store-server-alpha.vercel.app/item/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -52,7 +55,9 @@ const MyItems = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myItems/${user?.email}`)
+    fetch(
+      `https://art-and-craft-store-server-alpha.vercel.app/myItems/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         //console.log(data);

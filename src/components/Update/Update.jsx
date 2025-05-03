@@ -34,13 +34,16 @@ const Update = () => {
       stockStatus,
     };
 
-    fetch(`http://localhost:5000/item/${item._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateItem),
-    })
+    fetch(
+      `https://art-and-craft-store-server-alpha.vercel.app/item/${item._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateItem),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
